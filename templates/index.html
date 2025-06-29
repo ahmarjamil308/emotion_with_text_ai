@@ -1,1 +1,45 @@
-a
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Emotion Detector</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <div class="container">
+    <h1>Emotion Detector</h1>
+
+    <!-- Model Accuracy -->
+    <h3>Model Accuracy: <span class="accuracy">{{ accuracy }}%</span></h3>
+
+    <!-- Emotion Form -->
+    <form method="POST" class="form-box" id="emotion-form">
+      <input type="text" name="text" id="text-input" placeholder="How are you feeling?" required>
+      <div class="buttons">
+        <button type="submit">Detect Emotion</button>
+        <button type="button" onclick="resetForm()">Reset</button>
+      </div>
+    </form>
+
+    <!-- Emotion Result -->
+    {% if emotion %}
+    <div class="result" id="result-box">
+      <h2>Detected Emotion:</h2>
+      <p class="emotion">{{ emotion }}</p>
+      <p class="confidence">Confidence: {{ confidence }}%</p>
+    </div>
+    {% endif %}
+  </div>
+
+  <!-- JavaScript Reset Function -->
+  <script>
+    function resetForm() {
+      document.getElementById('emotion-form').reset();
+      const resultBox = document.getElementById('result-box');
+      if (resultBox) {
+        resultBox.style.display = 'none';
+      }
+    }
+  </script>
+</body>
+</html>
